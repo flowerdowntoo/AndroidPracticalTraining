@@ -98,9 +98,9 @@ public class HomeFragment extends Fragment {
             Toast.makeText(getActivity(),"没有更多数据",Toast.LENGTH_SHORT).show();
         });
         //从主页跳转python页面 python详情页
-        LinearLayout linearLayout_python = headerView.findViewById(R.id.linearLayout_python);
-        linearLayout_python.setOnClickListener(v-> Navigation.findNavController(v)
-                .navigate(R.id.action_navigation_home_to_pythonFragment));
+//        LinearLayout linearLayout_python = headerView.findViewById(R.id.linearLayout_python);
+//        linearLayout_python.setOnClickListener(v-> Navigation.findNavController(v)
+//                .navigate(R.id.action_navigation_home_to_pythonFragment));
 
         //传入新闻网站
         homeAdapter.setOnItemClickListener((adapter, view, position) -> {

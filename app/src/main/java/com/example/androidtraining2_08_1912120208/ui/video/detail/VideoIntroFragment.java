@@ -23,7 +23,7 @@ public class VideoIntroFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
        View root= inflater.inflate(R.layout.fragment_video_intro, container, false);
-        TextView textView = root.findViewById(R.id.textView);
+        TextView textView = root.findViewById(R.id.textView16);
         textView.setText(intro);
         return root;
     }

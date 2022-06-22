@@ -3,6 +3,7 @@ package com.example.androidtraining2_08_1912120208.ui.me;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -30,6 +32,9 @@ import com.google.gson.Gson;
 
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,8 +55,12 @@ public class MeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_me,container,false);
         CircleImageView circleImageView=root.findViewById(R.id.circleImageView);
         circleImageView.setOnClickListener(this::click);
-        TextView textView=root.findViewById(R.id.textView);
+        TextView textView=root.findViewById(R.id.textView16);
         textView.setOnClickListener(this::click);
+
+        LinearLayout linearLayoutAbout=root.findViewById(R.id.linearLayout_about);
+
+        linearLayoutAbout.setOnClickListener(this::about);
 
         SharedPreferences sharedPreferences=getActivity().getSharedPreferences("setting",MODE_PRIVATE);
 
@@ -106,6 +115,12 @@ public class MeFragment extends Fragment {
             isLogin = false;
 
         }
+
+        //我的车辆
+        LinearLayout linearLayout_car=root.findViewById(R.id.linearLayout_car);
+        linearLayout_car.setOnClickListener(view -> Navigation.
+                findNavController(view).navigate(R.id.action_navigation_me_to_myCarFragment));
+
         LinearLayout linearLayout_map=root.findViewById(R.id.linearLayout_map);
         linearLayout_map.setOnClickListener(view -> Navigation.
                 findNavController(view).navigate(R.id.action_navigation_me_to_mapFragment));
@@ -121,4 +136,11 @@ public class MeFragment extends Fragment {
         }
     }
 
+    private void about(View view) {
+        new AlertDialog.Builder(getContext())
+                .setTitle("关于我们")
+                .setMessage("欢迎使用Drive")
+                .setPositiveButton("确定", null)
+                .show();
+    }
 }

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.androidtraining2_08_1912120208.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:label="租车"
 
         tools:layout="@layout/fragment_home" >
         <!--跳转到python详情页-->
@@ -21,31 +21,31 @@
             app:destination="@id/webFragment" />
     </fragment>
 
-    <fragment
-        android:id="@+id/navigation_chart"
-        android:name="com.example.androidtraining2_08_1912120208.ui.chart.ChartFragment"
-        android:label="@string/title_chart"
-        tools:layout="@layout/fragment_chart" >
-        <action
-            android:id="@+id/action_navigation_chart_to_lineFragment"
-            app:destination="@id/lineFragment" />
-        <action
-            android:id="@+id/action_navigation_chart_to_barFragment"
-            app:destination="@id/barFragment" />
-        <action
-            android:id="@+id/action_navigation_chart_to_pieFragment"
-            app:destination="@id/pieFragment" />
-    </fragment>
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_chart"-->
+<!--        android:name="com.example.androidtraining2_08_1912120208.ui.chart.ChartFragment"-->
+<!--        android:label="@string/title_chart"-->
+<!--        tools:layout="@layout/fragment_chart" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_navigation_chart_to_lineFragment"-->
+<!--            app:destination="@id/lineFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_navigation_chart_to_barFragment"-->
+<!--            app:destination="@id/barFragment" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_navigation_chart_to_pieFragment"-->
+<!--            app:destination="@id/pieFragment" />-->
+<!--    </fragment>-->
 
-    <fragment
-        android:id="@+id/navigation_video"
-        android:name="com.example.androidtraining2_08_1912120208.ui.video.VideoFragment"
-        android:label="@string/title_video"
-        tools:layout="@layout/fragment_video" >
-        <action
-            android:id="@+id/action_navigation_video_to_videoDetailFragment"
-            app:destination="@id/videoDetailFragment" />
-    </fragment>
+<!--    <fragment-->
+<!--        android:id="@+id/navigation_video"-->
+<!--        android:name="com.example.androidtraining2_08_1912120208.ui.video.VideoFragment"-->
+<!--        android:label="@string/title_video"-->
+<!--        tools:layout="@layout/fragment_video" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_navigation_video_to_videoDetailFragment"-->
+<!--            app:destination="@id/videoDetailFragment" />-->
+<!--    </fragment>-->
     <fragment
         android:id="@+id/navigation_me"
         android:name="com.example.androidtraining2_08_1912120208.ui.me.MeFragment"
@@ -61,6 +61,9 @@
         <action
             android:id="@+id/action_navigation_me_to_mapFragment"
             app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_navigation_me_to_myCarFragment"
+            app:destination="@id/myCarFragment" />
     </fragment>
     <fragment
         android:id="@+id/pythonFragment"
@@ -141,7 +144,21 @@
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.androidtraining2_08_1912120208.ui.me.map.MapFragment"
-        android:label="fragment_map"
+        android:label="地图导航"
         tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/myCarFragment"
+        android:name="com.example.androidtraining2_08_1912120208.ui.me.user.MyCarFragment"
+        android:label="我的车辆"
+        tools:layout="@layout/fragment_my_car" >
+        <action
+            android:id="@+id/action_myCarFragment_to_carMessage"
+            app:destination="@id/carMessage" />
+    </fragment>
+    <fragment
+        android:id="@+id/carMessage"
+        android:name="com.example.androidtraining2_08_1912120208.ui.me.user.CarMessage"
+        android:label="车辆信息"
+        tools:layout="@layout/fragment_car_message" />
 
 </navigation>

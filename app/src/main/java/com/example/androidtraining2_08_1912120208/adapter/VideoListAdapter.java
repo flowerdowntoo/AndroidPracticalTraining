@@ -16,7 +16,7 @@ public class VideoListAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     @Override
     protected void convert(@NonNull BaseViewHolder baseViewHolder, String s) {
-       baseViewHolder.setText(R.id.textView,s);
+       baseViewHolder.setText(R.id.textView16,s);
 
     }
 }

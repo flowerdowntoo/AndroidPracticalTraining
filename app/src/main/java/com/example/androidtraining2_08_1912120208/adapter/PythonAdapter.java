@@ -20,8 +20,8 @@ public class PythonAdapter extends BaseQuickAdapter<PythonBean, BaseViewHolder> 
 
     @Override
     protected void convert(@NonNull BaseViewHolder baseViewHolder, PythonBean pythonBean) {
-        baseViewHolder.setText(R.id.textView,pythonBean.getAddress());
-        baseViewHolder.setText(R.id.textView2,pythonBean.getContent());
+        baseViewHolder.setText(R.id.textView16,pythonBean.getAddress());
+        baseViewHolder.setText(R.id.color,pythonBean.getContent());
         baseViewHolder.setText(R.id.textView3,pythonBean.getOpen_class());
 
     }

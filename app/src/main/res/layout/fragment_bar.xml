@@ -8,6 +8,7 @@
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
         android:layout_width="360dp"
+        android:background="@drawable/translucent"
         android:layout_height="360dp">
 
     </com.github.mikephil.charting.charts.BarChart>

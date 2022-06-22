@@ -55,11 +55,11 @@ public class LoginFragment extends BaseFragment2 {
         View root=inflater.inflate(R.layout.fragment_login, container, false);
         account=root.findViewById(R.id.account);
         password=root.findViewById(R.id.password);
-        TextView textView=root.findViewById(R.id.textView);
+        TextView textView=root.findViewById(R.id.register);
         textView.setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment);
         });
-        TextView textView2=root.findViewById(R.id.textView2);
+        TextView textView2=root.findViewById(R.id.findPassword);
         textView2.setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.findPasswordFragment);
         });
