@@ -196,6 +196,46 @@
                     android:layout_height="20dp"
                     app:srcCompat="@drawable/iv_right_arrow" />
             </LinearLayout>
+
+            <View
+                android:id="@+id/aboutme"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#ebebeb" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout_admin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/setting_icon" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:text="管理员审核" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:srcCompat="@drawable/iv_right_arrow" />
+            </LinearLayout>
+            <View
+                android:id="@+id/adminView"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#ebebeb" />
         </LinearLayout>
+
+
+
     </androidx.cardview.widget.CardView>
 </LinearLayout>

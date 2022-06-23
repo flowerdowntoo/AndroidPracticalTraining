@@ -49,6 +49,7 @@ public class MeFragment extends Fragment {
 
 
     private boolean isLogin;
+    private LinearLayout linearLayout_admin;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class MeFragment extends Fragment {
         circleImageView.setOnClickListener(this::click);
         TextView textView=root.findViewById(R.id.textView16);
         textView.setOnClickListener(this::click);
+        linearLayout_admin=root.findViewById(R.id.linearLayout_admin);
 
         LinearLayout linearLayoutAbout=root.findViewById(R.id.linearLayout_about);
 
@@ -68,12 +70,14 @@ public class MeFragment extends Fragment {
         String uri= NetUtils.INTERNET_THROUGH_URL+"androidtest/user/getUserByAccount/"+Account;
 
         if (!Account.isEmpty()){
+
             OkHttpManager.get(uri, new Callback() {
                 @Override
                 public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+
                             String responseData = "";
                             Result<User> result = null;
                             try {
@@ -95,9 +99,13 @@ public class MeFragment extends Fragment {
                             if (result.getCode() == 1) {
                                 System.out.println(result.getData().getUsername());
                                 textView.setText(result.getData().getUsername());
+                                if (result.getData().getIsAdmin() == 1){ //1代表管理员 0是用户
+                                    linearLayout_admin.setVisibility(View.VISIBLE);
+                                }
                                 isLogin = true;
                             } else {
                                 Toast.makeText(MeFragment.this.getContext(), result.getMsg(), Toast.LENGTH_SHORT).show();
+                                linearLayout_admin.setVisibility(View.GONE);
                                 isLogin = false;
                             }
                         }
@@ -112,6 +120,7 @@ public class MeFragment extends Fragment {
         }else{
             sharedPreferences.edit().remove("Account").apply();
             textView.setText("点击登录");
+            linearLayout_admin.setVisibility(View.GONE);
             isLogin = false;
 
         }
