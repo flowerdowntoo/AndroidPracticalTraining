@@ -101,6 +101,8 @@ public class MeFragment extends Fragment {
                                 textView.setText(result.getData().getUsername());
                                 if (result.getData().getIsAdmin() == 1){ //1代表管理员 0是用户
                                     linearLayout_admin.setVisibility(View.VISIBLE);
+                                }else{
+                                    linearLayout_admin.setVisibility(View.GONE);
                                 }
                                 isLogin = true;
                             } else {

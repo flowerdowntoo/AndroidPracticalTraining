@@ -8,8 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 //创建网络工具类
 public class NetUtils {
-    public static final String BASE_URL = "http://10.0.2.2:8080/topline/";
-    public static final String INTERNET_THROUGH_URL = "http://192.168.137.1:8081/";
+    public static final String BASE_URL = "http://1bdd9ec4.cpolar.cn/topline/";
+    public static final String INTERNET_THROUGH_URL = "http://53d4c260.cpolar.cn/";
     public static GetRequest get(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)

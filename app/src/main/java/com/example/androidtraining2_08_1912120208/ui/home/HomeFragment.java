@@ -25,8 +25,18 @@ import com.example.androidtraining2_08_1912120208.adapter.HomeAdapter;
 import com.example.androidtraining2_08_1912120208.adapter.ImageAdapter;
 import com.example.androidtraining2_08_1912120208.adapter.ImageTitleNumAdapter;
 import com.example.androidtraining2_08_1912120208.bean.NewsBean;
+import com.example.androidtraining2_08_1912120208.bean.Result;
+import com.example.androidtraining2_08_1912120208.bean.User;
+import com.example.androidtraining2_08_1912120208.bean.rentalDto;
 import com.example.androidtraining2_08_1912120208.databinding.FragmentHomeBinding;
 import com.example.androidtraining2_08_1912120208.ui.chart.ChartViewModel;
+import com.example.androidtraining2_08_1912120208.ui.me.user.InfoFragment;
+import com.example.androidtraining2_08_1912120208.utils.NetUtils;
+import com.example.androidtraining2_08_1912120208.utils.OkHttpManager;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
@@ -38,8 +48,13 @@ import com.youth.banner.indicator.CircleIndicator;
 import com.youth.banner.indicator.RoundLinesIndicator;
 import com.youth.banner.transformer.ZoomOutPageTransformer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class HomeFragment extends Fragment {
 
@@ -102,13 +117,6 @@ public class HomeFragment extends Fragment {
 //        linearLayout_python.setOnClickListener(v-> Navigation.findNavController(v)
 //                .navigate(R.id.action_navigation_home_to_pythonFragment));
 
-        //传入新闻网站
-        homeAdapter.setOnItemClickListener((adapter, view, position) -> {
-            Bundle bundle=new Bundle();
-            bundle.putString("url",homeAdapter.getData().get(position).getNewsUrl());
-            Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_webFragment,
-                    bundle);
-        });
 
 
 
@@ -134,12 +142,52 @@ public class HomeFragment extends Fragment {
     }
     //得到新闻列表
     private void getNewsList() {
-        homeViewModel.getNewsList().observe(getViewLifecycleOwner(), newsBeans -> {
-//            for(NewsBean newsBean:newsBeans){
-//                Log.i("News",newsBean.getNewsName());
-//            }
-            homeAdapter.setList(newsBeans);
+
+        String uri= NetUtils.INTERNET_THROUGH_URL+"androidtest/rental/getRentalInfo";
+
+        OkHttpManager.get(uri, new Callback() {
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String responseData = "";
+                        Result<List<rentalDto>> result = null;
+                        try {
+
+                            responseData = response.body().string();
+                            System.out.println(responseData);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+                        try {
+                            result = objectMapper.readValue(responseData,new TypeReference<Result<List<rentalDto>>>(){});
+                        } catch (JsonProcessingException e) {
+                            e.printStackTrace();
+                        }
+                        System.out.println(result);
+                        System.out.println(result.getData());
+                        if (result.getCode() == 1) {
+                           homeAdapter.setList(result.getData());
+
+                        } else {
+                            Toast.makeText(HomeFragment.this.getContext(), result.getMsg(), Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+            }
         });
+
+
     }
 
 
