@@ -96,6 +96,7 @@
             android:textColor="#FFE502"
             android:textSize="24sp" />
 
+
     </LinearLayout>
 
     <LinearLayout
@@ -161,6 +162,15 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#ebebeb" />
+
+    <TextView
+        android:id="@+id/rentalId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:visibility="gone"
+        android:text="id" />
 
 
 </LinearLayout>

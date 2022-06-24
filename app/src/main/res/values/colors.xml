@@ -12,4 +12,16 @@
     <color name="white">#FFFFFFFF</color>
     <!--输入框背景颜色-->
     <color name="input">#f2f3f7</color>
+    <color name="date_picker_bg">#FFFFFF</color>
+    <color name="date_picker_divider">#11112233</color>
+    <color name="date_picker_text_light">#59B29C</color>
+    <color name="date_picker_text_lightO">#ff5823</color>
+    <color name="date_picker_text_lightL">#707070</color>
+    <color name="date_picker_text_dark">#333333</color>
+
+    <color name="main_bg">#F0F0F0</color>
+    <color name="select_title_text">#B0B0B0</color>
+    <color name="current_time_bg">#FFFFFF</color>
+    <color name="current_time_text">#666666</color>
+    <color name="selected_time_text">#57C5E8</color>
 </resources>

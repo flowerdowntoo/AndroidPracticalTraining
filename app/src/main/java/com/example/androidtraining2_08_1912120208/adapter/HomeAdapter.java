@@ -1,20 +1,50 @@
 package com.example.androidtraining2_08_1912120208.adapter;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.example.androidtraining2_08_1912120208.R;
 import com.example.androidtraining2_08_1912120208.bean.NewsBean;
+import com.example.androidtraining2_08_1912120208.bean.Result;
 import com.example.androidtraining2_08_1912120208.bean.rentalDto;
+import com.example.androidtraining2_08_1912120208.datepicker.CustomDatePicker;
+import com.example.androidtraining2_08_1912120208.datepicker.DateFormatUtils;
+import com.example.androidtraining2_08_1912120208.ui.me.user.RegisterFragment;
 import com.example.androidtraining2_08_1912120208.utils.NetUtils;
+import com.example.androidtraining2_08_1912120208.utils.OkHttpManager;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class HomeAdapter extends BaseMultiItemQuickAdapter<rentalDto, BaseViewHolder> {
+    private TextView mTvSelectedDate, mTvSelectedTime;
+    private Button appointment;
+    private CustomDatePicker mDatePicker, mTimerPicker;
+
 
     public HomeAdapter(List<rentalDto> data) {
         super(data);
@@ -24,27 +54,99 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<rentalDto, BaseViewHo
 
     }
 
+
     @Override
     //设置新闻具体信息
     protected void convert(@NotNull BaseViewHolder baseViewHolder, rentalDto rentalDto) {
-        switch (baseViewHolder.getItemViewType()){
-            //item_home1
-//            case 1:
-//                baseViewHolder.setText(R.id.textView,newsBean.getNewsName());
-//                baseViewHolder.setText(R.id.textView,newsBean.getNewsTypeName());
-//                Glide.with(getContext()).load(NetUtils.BASE_URL+newsBean.getImg1())
-//                        .into((ImageView)baseViewHolder.getView(R.id.imageView));
-//                break;
-            //item_home2
-            case 2:
+
+                initTimerPicker();
+
                 baseViewHolder.setText(R.id.brandName,rentalDto.getCar().getPlatenumber());
                 baseViewHolder.setText(R.id.name,rentalDto.getUser().getName());
                 baseViewHolder.setText(R.id.carKindName,rentalDto.getCar().getBrand());
-                baseViewHolder.setText(R.id.startT,rentalDto.getStarttime());
-                baseViewHolder.setText(R.id.endT,rentalDto.getFinishtime());
-                baseViewHolder.setText(R.id.startTime,rentalDto.getStartday());
-                baseViewHolder.setText(R.id.endTime,rentalDto.getFinishday());
-                break;
-        }
+                baseViewHolder.setText(R.id.startTime,rentalDto.getStarttime());
+                baseViewHolder.setText(R.id.endTime,rentalDto.getFinishtime());
     }
+
+    private void click(View view) {
+//        Toast.makeText(getContext(), "2123", Toast.LENGTH_SHORT).show();
+                // 日期格式为yyyy-MM-dd HH:mm
+
+
+                System.out.println();
+                mTimerPicker.show(appointment.getText().toString());
+
+    }
+    private void initTimerPicker() {
+        //开始时间
+        String beginTime = "2022-01-01 00:00";
+//        DateFormatUtils.long2Str(System.currentTimeMillis(), true);
+        //结束时间
+        String endTime =  "2022-12-30 24:00";
+        // 通过日期字符串初始化日期，格式请用：yyyy-MM-dd HH:mm
+        mTimerPicker = new CustomDatePicker(this.getContext(), new CustomDatePicker.Callback() {
+            @Override
+            public void onTimeSelected(long timestamp) {
+
+                String uri= NetUtils.INTERNET_THROUGH_URL+"androidtest/order/makeAnAppointment";
+
+                Map map = new HashMap();
+
+
+
+
+//
+//                OkHttpManager.postF(uri, map, new Callback() {
+//                    @Override
+//                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+//                        getActivity().runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                String responseData = "";
+//                                Result<String> result = null;
+//                                try {
+//                                    responseData = response.body().string();
+//                                    System.out.println(responseData);
+//                                } catch (IOException e) {
+//                                    e.printStackTrace();
+//                                }
+//                                ObjectMapper objectMapper = new ObjectMapper();
+//                                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//
+//                                try {
+//                                    result = objectMapper.readValue(responseData,new TypeReference<Result<String>>(){});
+//                                } catch (JsonProcessingException e) {
+//                                    e.printStackTrace();
+//                                }
+//                                if (result.getCode() == 1){
+//                                    Toast.makeText(RegisterFragment.this.getContext(), "注册成功!", Toast.LENGTH_SHORT).show();
+//                                    Navigation.findNavController(view).navigateUp();
+//                                }else{
+//                                    Toast.makeText(RegisterFragment.this.getContext(), result.getMsg(), Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                        });
+//                    }
+//
+//                    @Override
+//                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
+//
+//                    }
+//
+//                });
+
+            }
+        }, beginTime, endTime);
+        // 允许点击屏幕或物理返回键关闭
+        mTimerPicker.setCancelable(true);
+        // 显示时和分
+        mTimerPicker.setCanShowPreciseTime(true);
+        // 允许循环滚动
+        mTimerPicker.setScrollLoop(true);
+        // 允许滚动动画
+        mTimerPicker.setCanShowAnim(true);
+    }
+
+
+
 }
