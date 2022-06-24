@@ -15,6 +15,8 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.example.androidtraining2_08_1912120208.R;
 import com.example.androidtraining2_08_1912120208.bean.Car;
 import com.example.androidtraining2_08_1912120208.bean.rentalDto;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -51,6 +53,9 @@ public class MyCarAdapter extends BaseMultiItemQuickAdapter<Car, BaseViewHolder>
                 baseViewHolder.setText(R.id.brand,car.getBrand());
                 baseViewHolder.setText(R.id.color,car.getColor());
             baseViewHolder.findView(R.id.mycar_item).setOnClickListener(this::click);
+
+
+
 //                baseViewHolder.setText(R.id.startTime,rentalDto.getStarttime());
 //                baseViewHolder.setText(R.id.endTime,rentalDto.getFinishtime());
 
@@ -58,6 +63,9 @@ public class MyCarAdapter extends BaseMultiItemQuickAdapter<Car, BaseViewHolder>
 //        }
 
     }
+
+
+
 
     public void click(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext(),android.R.style.Theme_Holo_Light_Dialog);
@@ -77,7 +85,7 @@ public class MyCarAdapter extends BaseMultiItemQuickAdapter<Car, BaseViewHolder>
 //                Toast.makeText(getActivity(), "选择的操作为：" + c[which], Toast.LENGTH_SHORT).show();
                 if(c[which]=="详情"){
 
-                    Navigation.findNavController(view).navigate(R.id.action_myCarFragment_to_carMessage);
+                    Navigation.findNavController(view).navigate(R.id.action_myCarFragment_to_cardetilFragment);
 //                    Toast.makeText(getContext(), "跳转", Toast.LENGTH_SHORT).show();
                 }
 

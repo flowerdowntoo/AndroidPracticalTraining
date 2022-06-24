@@ -1,19 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.scwang.smart.refresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/refreshLayout"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.scwang.smart.refresh.header.ClassicsHeader
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/carRecyclerView"
+    </com.scwang.smart.refresh.header.ClassicsHeader>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginTop="490dp"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/addcar"
+            app:backgroundTint="@color/date_picker_text_lightA" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/carRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="-550dp"
+            android:backgroundTint="#ED2121"
+            app:fabSize="auto">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
 
     <com.scwang.smart.refresh.footer.ClassicsFooter
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+    </com.scwang.smart.refresh.footer.ClassicsFooter>
+
+
 </com.scwang.smart.refresh.layout.SmartRefreshLayout>

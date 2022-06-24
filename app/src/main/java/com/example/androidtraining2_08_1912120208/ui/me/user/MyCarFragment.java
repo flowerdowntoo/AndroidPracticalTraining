@@ -3,9 +3,12 @@ package com.example.androidtraining2_08_1912120208.ui.me.user;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.content.ClipData;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,8 +18,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -33,6 +41,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.nightonke.boommenu.BoomMenuButton;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 
 import java.io.IOException;
@@ -45,12 +56,21 @@ import okhttp3.Response;
 
 public class MyCarFragment extends Fragment {
 
+
     private MyCarAdapter myCarAdapter;
+
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
         View root=inflater.inflate(R.layout.fragment_my_car, container, false);
+        FloatingActionButton fab = root.findViewById(R.id.fab);
+        fab.setOnClickListener(this::click);
+
+
+
+
         //导入刷新模板
         RefreshLayout refreshLayout = (RefreshLayout)root.findViewById(R.id.refreshLayout);
         //获取recyclerView
@@ -73,6 +93,11 @@ public class MyCarFragment extends Fragment {
 //        linearLayout_car.setOnClickListener(this::click);
 
         return root;
+
+    }
+
+    private void click(View view) {
+        Navigation.findNavController(view).navigate(R.id.action_myCarFragment_to_addcarsFragment);
     }
 
 

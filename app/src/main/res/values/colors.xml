@@ -17,6 +17,7 @@
     <color name="date_picker_text_light">#59B29C</color>
     <color name="date_picker_text_lightO">#ff5823</color>
     <color name="date_picker_text_lightL">#707070</color>
+    <color name="date_picker_text_lightA">#10aec2</color>
     <color name="date_picker_text_dark">#333333</color>
 
     <color name="main_bg">#F0F0F0</color>

@@ -21,6 +21,8 @@
             app:destination="@id/webFragment" />
     </fragment>
 
+
+
 <!--    <fragment-->
 <!--        android:id="@+id/navigation_chart"-->
 <!--        android:name="com.example.androidtraining2_08_1912120208.ui.chart.ChartFragment"-->
@@ -152,13 +154,24 @@
         android:label="我的车辆"
         tools:layout="@layout/fragment_my_car" >
         <action
-            android:id="@+id/action_myCarFragment_to_carMessage"
-            app:destination="@id/carMessage" />
+            android:id="@+id/action_myCarFragment_to_cardetilFragment"
+            app:destination="@id/cardetilFragment" />
+        <action
+            android:id="@+id/action_myCarFragment_to_addcarsFragment"
+            app:destination="@id/addcarsFragment" />
+        <action
+            android:id="@+id/action_myCarFragment_to_navigation_me"
+            app:destination="@id/navigation_me" />
     </fragment>
     <fragment
-        android:id="@+id/carMessage"
-        android:name="com.example.androidtraining2_08_1912120208.ui.me.user.CarMessage"
+        android:id="@+id/cardetilFragment"
+        android:name="com.example.androidtraining2_08_1912120208.ui.me.user.cardetilFragment"
         android:label="车辆信息"
-        tools:layout="@layout/fragment_car_message" />
+        tools:layout="@layout/fragment_cardetil" />
+    <fragment
+        android:id="@+id/addcarsFragment"
+        android:name="com.example.androidtraining2_08_1912120208.ui.me.user.addcarsFragment"
+        android:label="添加车辆"
+        tools:layout="@layout/fragment_addcars" />
 
 </navigation>
