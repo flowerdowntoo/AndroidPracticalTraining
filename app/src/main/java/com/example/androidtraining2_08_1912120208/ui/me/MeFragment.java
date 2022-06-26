@@ -99,9 +99,11 @@ public class MeFragment extends Fragment {
                             if (result.getCode() == 1) {
                                 System.out.println(result.getData().getUsername());
                                 textView.setText(result.getData().getUsername());
-                                if (result.getData().getIsAdmin() == 1){ //1代表管理员 0是用户
+                                if (result.getData().getIsadmin() == 1){ //1代表管理员 0是用户
+                                    System.out.println(result.getData().getIsadmin());
                                     linearLayout_admin.setVisibility(View.VISIBLE);
                                 }else{
+                                    System.out.println(result.getData().getIsadmin());
                                     linearLayout_admin.setVisibility(View.GONE);
                                 }
                                 isLogin = true;
@@ -135,6 +137,11 @@ public class MeFragment extends Fragment {
         LinearLayout linearLayout_map=root.findViewById(R.id.linearLayout_map);
         linearLayout_map.setOnClickListener(view -> Navigation.
                 findNavController(view).navigate(R.id.action_navigation_me_to_mapFragment));
+        //管理员审核
+        LinearLayout linearLayout_admin=root.findViewById(R.id.linearLayout_admin);
+        linearLayout_admin.setOnClickListener(view -> Navigation.
+                findNavController(view).navigate(R.id.action_navigation_me_to_managerFragment));
+
         return root;
     }
 

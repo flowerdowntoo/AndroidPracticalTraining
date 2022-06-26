@@ -92,8 +92,17 @@
             android:layout_weight="0"
             android:background="@drawable/piece_dot"
             android:backgroundTint="#E14646"
-            android:text="预约"
+            android:text="审核"
             android:textColor="#FFE502"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/Sid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="-80dp"
+            android:layout_weight="0"
             android:textSize="24sp" />
 
     </LinearLayout>
@@ -140,7 +149,7 @@
             android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:text="——"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/endTime"

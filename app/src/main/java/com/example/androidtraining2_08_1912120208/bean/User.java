@@ -9,7 +9,7 @@ public class User {
     private String password;
     private String sex;
     private int number;
-    private int isAdmin;
+    private int isadmin;
     private String name;
     private String image;
 
@@ -64,12 +64,12 @@ public class User {
         this.number = number;
     }
 
-    public int getIsAdmin() {
-        return isAdmin;
+    public int getIsadmin() {
+        return isadmin;
     }
 
-    public void setIsAdmin(int isAdmin) {
-        this.isAdmin = isAdmin;
+    public void setIsadmin(int isadmin) {
+        this.isadmin = isadmin;
     }
 
     public String getName() {
@@ -86,20 +86,5 @@ public class User {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", account='" + account + '\'' +
-                ", password='" + password + '\'' +
-                ", sex='" + sex + '\'' +
-                ", number=" + number +
-                ", isAdmin=" + isAdmin +
-                ", name='" + name + '\'' +
-                ", image='" + image + '\'' +
-                '}';
     }
 }

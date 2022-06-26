@@ -69,6 +69,9 @@
         <action
             android:id="@+id/action_navigation_me_to_myCarFragment"
             app:destination="@id/myCarFragment" />
+        <action
+            android:id="@+id/action_navigation_me_to_managerFragment"
+            app:destination="@id/managerFragment" />
     </fragment>
     <fragment
         android:id="@+id/pythonFragment"
@@ -176,5 +179,10 @@
         android:name="com.example.androidtraining2_08_1912120208.ui.me.user.addcarsFragment"
         android:label="添加车辆"
         tools:layout="@layout/fragment_addcars" />
+    <fragment
+        android:id="@+id/managerFragment"
+        android:name="com.example.androidtraining2_08_1912120208.ui.me.user.ManagerFragment"
+        android:label="管理员审核"
+        tools:layout="@layout/fragment_manager" />
 
 </navigation>
