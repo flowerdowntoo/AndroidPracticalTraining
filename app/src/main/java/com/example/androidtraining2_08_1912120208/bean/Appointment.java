@@ -1,4 +1,4 @@
-package com.example.androidtraining2_08_1912120208.adapter;
+package com.example.androidtraining2_08_1912120208.bean;
 
 
 

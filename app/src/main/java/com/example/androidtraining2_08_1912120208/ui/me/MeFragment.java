@@ -129,10 +129,15 @@ public class MeFragment extends Fragment {
 
         }
 
-        //我的车辆
         LinearLayout linearLayout_car=root.findViewById(R.id.linearLayout_car);
-        linearLayout_car.setOnClickListener(view -> Navigation.
-                findNavController(view).navigate(R.id.action_navigation_me_to_myCarFragment));
+        linearLayout_car.setOnClickListener(view -> {
+            if(Account.isEmpty()){
+                Navigation.findNavController(view).navigate(R.id.loginFragment);
+            }else{
+                Navigation.findNavController(view).navigate(R.id.action_navigation_me_to_myCarFragment);
+            }
+
+        });
 
         LinearLayout linearLayout_map=root.findViewById(R.id.linearLayout_map);
         linearLayout_map.setOnClickListener(view -> Navigation.
@@ -141,6 +146,29 @@ public class MeFragment extends Fragment {
         LinearLayout linearLayout_admin=root.findViewById(R.id.linearLayout_admin);
         linearLayout_admin.setOnClickListener(view -> Navigation.
                 findNavController(view).navigate(R.id.action_navigation_me_to_managerFragment));
+
+
+        LinearLayout linearLayout_yu=root.findViewById(R.id.linearLayout_yu);
+        linearLayout_yu.setOnClickListener(view -> {
+            if(Account.isEmpty()){
+                Navigation.findNavController(view).navigate(R.id.loginFragment);
+            }else{
+                System.out.println("跳转到预约页面");
+//                Navigation.findNavController(view).navigate(R.id.action_navigation_me_to_myCarFragment);
+            }
+
+        });
+
+        LinearLayout linearLayout_fa=root.findViewById(R.id.linearLayout_fa);
+        linearLayout_fa.setOnClickListener(view -> {
+            if(Account.isEmpty()){
+                Navigation.findNavController(view).navigate(R.id.loginFragment);
+            }else{
+                System.out.println("跳转到发布页面");
+//                Navigation.findNavController(view).navigate(R.id.action_navigation_me_to_myCarFragment);
+            }
+
+        });
 
         return root;
     }
