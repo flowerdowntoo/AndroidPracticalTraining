@@ -88,6 +88,7 @@ public class HomeFragment extends Fragment {
         View headerView=inflater.inflate(R.layout.header_home,container,false);
         homeAdapter.addHeaderView(headerView);
         homeAdapter.setHeaderWithEmptyEnable(true);
+
         //--------------------------简单使用轮播图-------------------------------
        banner= headerView.findViewById(R.id.banner);
        //启动轮播图
@@ -122,6 +123,8 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
+
+
     //得到广告列表
     private void getAdList() {
         homeViewModel.getAdList().observe(getViewLifecycleOwner(), newsBeans -> {

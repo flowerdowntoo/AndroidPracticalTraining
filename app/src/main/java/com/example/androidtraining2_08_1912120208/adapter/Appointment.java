@@ -4,7 +4,7 @@ package com.example.androidtraining2_08_1912120208.adapter;
 
 import java.io.Serializable;
 
-public class Order implements Serializable {
+public class Appointment implements Serializable {
     /**
      * 
      */
@@ -14,7 +14,7 @@ public class Order implements Serializable {
     /**
      * 
      */
-    private Integer rentalid;
+    private String rentalid;
 
     /**
      * 
@@ -29,7 +29,7 @@ public class Order implements Serializable {
     /**
      * 
      */
-    private Integer employerid;
+    private String employerid;
 
     /**
      * 
@@ -74,11 +74,11 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public Integer getRentalid() {
+    public String getRentalid() {
         return rentalid;
     }
 
-    public void setRentalid(Integer rentalid) {
+    public void setRentalid(String rentalid) {
         this.rentalid = rentalid;
     }
 
@@ -98,11 +98,11 @@ public class Order implements Serializable {
         this.appointtime = appointtime;
     }
 
-    public Integer getEmployerid() {
+    public String getEmployerid() {
         return employerid;
     }
 
-    public void setEmployerid(Integer employerid) {
+    public void setEmployerid(String employerid) {
         this.employerid = employerid;
     }
 
