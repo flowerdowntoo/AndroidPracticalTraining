@@ -122,7 +122,7 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<rentalDto, BaseViewHo
             @Override
             public void onTimeSelected(long timestamp) {
 
-                String uri= NetUtils.INTERNET_THROUGH_URL+"androidtest/order/makeAnAppointment";
+                String uri= NetUtils.INTERNET_THROUGH_URL+"androidtest/appointment/makeAnAppointment";
 
                 SharedPreferences sharedPreferences=((Activity)getContext()).getSharedPreferences("setting",MODE_PRIVATE);
 

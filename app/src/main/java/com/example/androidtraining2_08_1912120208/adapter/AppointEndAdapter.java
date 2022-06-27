@@ -7,16 +7,17 @@ import androidx.annotation.NonNull;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.example.androidtraining2_08_1912120208.R;
+import com.example.androidtraining2_08_1912120208.bean.appointmentDto;
 import com.example.androidtraining2_08_1912120208.bean.rentalDto;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class AppointEndAdapter extends BaseMultiItemQuickAdapter<rentalDto, BaseViewHolder> {
+public class AppointEndAdapter extends BaseMultiItemQuickAdapter<appointmentDto, BaseViewHolder> {
     private long rentalId;
     private long id;
-    public AppointEndAdapter(List<rentalDto> data) {
+    public AppointEndAdapter(List<appointmentDto> data) {
         super(data);
         // 绑定 layout 对应的 type
 //         addItemType(1, R.layout.item_home1);
@@ -27,7 +28,7 @@ public class AppointEndAdapter extends BaseMultiItemQuickAdapter<rentalDto, Base
 
     @Override
     //设置新闻具体信息
-    protected void convert(@NotNull BaseViewHolder baseViewHolder, rentalDto rentalDto) {
+    protected void convert(@NotNull BaseViewHolder baseViewHolder, appointmentDto appointmentDto) {
 //        switch (baseViewHolder.getItemViewType()){
 //            //item_home1
 ////            case 1:
@@ -38,17 +39,19 @@ public class AppointEndAdapter extends BaseMultiItemQuickAdapter<rentalDto, Base
 ////                break;
 //            //item_home2
 //            case 2:
-        System.out.println("我的预约");
+        System.out.println("已结束");
         //       LinearLayout linearLayout_car = root.findViewById(R.id.mycar_item);
 //        linearLayout_car.setOnClickListener(this::click);
-        baseViewHolder.setText(R.id.brandName,rentalDto.getCar().getPlatenumber());
-        baseViewHolder.setText(R.id.name,rentalDto.getUser().getName());
-        baseViewHolder.setText(R.id.carKindName,rentalDto.getCar().getBrand());
-        baseViewHolder.setText(R.id.startT,rentalDto.getStartday());
-        baseViewHolder.setText(R.id.endT,rentalDto.getFinishday());
-        baseViewHolder.setText(R.id.startTime,rentalDto.getStarttime());
-        baseViewHolder.setText(R.id.endTime,rentalDto.getFinishtime());
-
+        baseViewHolder.setText(R.id.brandName, appointmentDto.getCar().getPlatenumber());
+        baseViewHolder.setText(R.id.name, appointmentDto.getUser().getName());
+        baseViewHolder.setText(R.id.carKindName, appointmentDto.getCar().getBrand());
+        baseViewHolder.setText(R.id.startT, appointmentDto.getRental().getStartday());
+        baseViewHolder.setText(R.id.endT, appointmentDto.getRental().getFinishday());
+        baseViewHolder.setText(R.id.startTime, appointmentDto.getRental().getStarttime());
+        baseViewHolder.setText(R.id.endTime, appointmentDto.getRental().getFinishtime());
+        baseViewHolder.setText(R.id.endTime, appointmentDto.getRental().getFinishtime());
+        baseViewHolder.setText(R.id.appointmentDate, appointmentDto.getAppointday());
+        baseViewHolder.setText(R.id.appointmentTime, appointmentDto.getAppointtime());
 
 
 

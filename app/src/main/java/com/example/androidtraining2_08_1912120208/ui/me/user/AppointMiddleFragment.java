@@ -1,5 +1,8 @@
 package com.example.androidtraining2_08_1912120208.ui.me.user;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 import com.example.androidtraining2_08_1912120208.R;
 import com.example.androidtraining2_08_1912120208.adapter.AppointMiddleAdapter;
 import com.example.androidtraining2_08_1912120208.bean.Result;
+import com.example.androidtraining2_08_1912120208.bean.appointmentDto;
 import com.example.androidtraining2_08_1912120208.bean.rentalDto;
 import com.example.androidtraining2_08_1912120208.utils.NetUtils;
 import com.example.androidtraining2_08_1912120208.utils.OkHttpManager;
@@ -44,11 +48,12 @@ public class AppointMiddleFragment extends Fragment {
         //导入刷新模板
         RefreshLayout refreshLayout = (RefreshLayout)root.findViewById(R.id.refreshLayout);
         //获取recyclerView
-        getNewsList();
+
         RecyclerView recyclerView=root.findViewById(R.id.allRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         appointMiddleAdapter=new AppointMiddleAdapter(null);
         recyclerView.setAdapter(appointMiddleAdapter);
+        getNewsList();
         refreshLayout.setOnRefreshListener(refresh -> {
             refresh.finishRefresh(2000/*,false*/);//传入false表示刷新失败
             //得到新闻列表
@@ -70,7 +75,10 @@ public class AppointMiddleFragment extends Fragment {
     //得到新闻列表
     private void getNewsList() {
 
-        String uri= NetUtils.INTERNET_THROUGH_URL+"androidtest/rental/getRentalInfo";
+        SharedPreferences sharedPreferences= getActivity().getSharedPreferences("setting",MODE_PRIVATE);
+
+        String account = sharedPreferences.getString("Account","");
+        String uri= NetUtils.INTERNET_THROUGH_URL+"androidtest/appointment/getMyAppointmentState/"+account;
 
         OkHttpManager.get(uri, new Callback() {
             @Override
@@ -79,7 +87,7 @@ public class AppointMiddleFragment extends Fragment {
                     @Override
                     public void run() {
                         String responseData = "";
-                        Result<List<rentalDto>> result = null;
+                        Result<List<appointmentDto>> result = null;
                         try {
 
                             responseData = response.body().string();
@@ -91,7 +99,7 @@ public class AppointMiddleFragment extends Fragment {
                         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
                         try {
-                            result = objectMapper.readValue(responseData,new TypeReference<Result<List<rentalDto>>>(){});
+                            result = objectMapper.readValue(responseData,new TypeReference<Result<List<appointmentDto>>>(){});
                         } catch (JsonProcessingException e) {
                             e.printStackTrace();
                         }
