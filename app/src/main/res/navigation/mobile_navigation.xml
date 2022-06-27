@@ -72,6 +72,12 @@
         <action
             android:id="@+id/action_navigation_me_to_managerFragment"
             app:destination="@id/managerFragment" />
+        <action
+            android:id="@+id/action_navigation_me_to_publishFragment"
+            app:destination="@id/publishFragment" />
+        <action
+            android:id="@+id/action_navigation_me_to_appointmentMyFragment"
+            app:destination="@id/appointmentMyFragment" />
     </fragment>
     <fragment
         android:id="@+id/pythonFragment"
@@ -184,5 +190,15 @@
         android:name="com.example.androidtraining2_08_1912120208.ui.me.user.ManagerFragment"
         android:label="管理员审核"
         tools:layout="@layout/fragment_manager" />
+    <fragment
+        android:id="@+id/publishFragment"
+        android:name="com.example.androidtraining2_08_1912120208.ui.me.user.PublishFragment"
+        android:label="发布车辆"
+        tools:layout="@layout/fragment_publish" />
+    <fragment
+        android:id="@+id/appointmentMyFragment"
+        android:name="com.example.androidtraining2_08_1912120208.ui.me.user.AppointmentMyFragment"
+        android:label="我的预约"
+        tools:layout="@layout/fragment_appointment_my" />
 
 </navigation>

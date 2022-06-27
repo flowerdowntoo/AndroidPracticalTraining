@@ -154,7 +154,7 @@ public class MeFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.loginFragment);
             }else{
                 System.out.println("跳转到预约页面");
-//                Navigation.findNavController(view).navigate(R.id.action_navigation_me_to_myCarFragment);
+               Navigation.findNavController(view).navigate(R.id.action_navigation_me_to_appointmentMyFragment);
             }
 
         });
@@ -165,7 +165,7 @@ public class MeFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.loginFragment);
             }else{
                 System.out.println("跳转到发布页面");
-//                Navigation.findNavController(view).navigate(R.id.action_navigation_me_to_myCarFragment);
+                Navigation.findNavController(view).navigate(R.id.action_navigation_me_to_publishFragment);
             }
 
         });
