@@ -1,6 +1,10 @@
 package com.example.androidtraining2_08_1912120208.ui.me.user;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.session.MediaSession;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,7 +37,12 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,6 +64,9 @@ public class RegisterFragment extends BaseFragment2 {
     private RadioButton sex;
     private String image;
     private de.hdodenhof.circleimageview.CircleImageView CircleImageView;
+    private Bitmap bitmap;
+    private ImageView img;
+    private String path;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -104,17 +116,51 @@ public class RegisterFragment extends BaseFragment2 {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 2) {
             // 从相册返回的数据
-            Log.e(this.getClass().getName(), "Result:" + data.toString());
-            if (data != null) {
-                // 得到图片的全路径
-                Uri uri = data.getData();
-                CircleImageView.setImageURI(uri);
-                image = uri.toString();
-                Log.e(this.getClass().getName(), "Uri:" + String.valueOf(uri));
+            ContentResolver cr = this.getActivity().getContentResolver();
+            Uri uri = data.getData();
+            try {
+                bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
+                CircleImageView.setImageBitmap(bitmap);
+                Cursor cursor = cr.query(uri,new String[]{MediaStore.Images.Media.DATA},null,null,null);
+
+                if (cursor.moveToFirst()){
+                    path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+                    System.out.println(path);
+                    upload();
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
         }
     }
 
+    public void upload(){
+        File file = new File(path);
+        try {
+            String uri= NetUtils.INTERNET_THROUGH_URL+"androidtest/common/upload";
+            System.out.println(uri);
+            System.out.println(path);
+            URL url = new URL(uri);
+            OkHttpManager.postFile(url, file, new Callback() {
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                    System.out.println("失败");
+                }
+
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(RegisterFragment.this.getContext(),"成功", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
     //    /**
 //     * 账号密码注册
 //     */
