@@ -1,7 +1,11 @@
 package com.example.androidtraining2_08_1912120208.adapter;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,12 +17,28 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.example.androidtraining2_08_1912120208.R;
 import com.example.androidtraining2_08_1912120208.bean.Car;
+import com.example.androidtraining2_08_1912120208.bean.Result;
 import com.example.androidtraining2_08_1912120208.bean.appointmentDto;
 import com.example.androidtraining2_08_1912120208.bean.rentalDto;
+import com.example.androidtraining2_08_1912120208.datepicker.DateFormatUtils;
+import com.example.androidtraining2_08_1912120208.ui.home.HomeFragment;
+import com.example.androidtraining2_08_1912120208.utils.NetUtils;
+import com.example.androidtraining2_08_1912120208.utils.OkHttpManager;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class AllAppointmentAdapter extends BaseMultiItemQuickAdapter<appointmentDto, BaseViewHolder>{
     private long rentalId;
@@ -53,8 +73,8 @@ public class AllAppointmentAdapter extends BaseMultiItemQuickAdapter<appointment
                 //审核状态
                 TextView textView=baseViewHolder.findView(R.id.Sid);
                 appointment.setOnClickListener(view->{
-                    id = appointmentDto.getId();
-                    System.out.println(id);
+                    rentalId = appointmentDto.getRental().getId();
+                    System.out.println(rentalId);
                     new AlertDialog.Builder(getContext())
                             .setTitle("取消预约")
                             .setMessage("是否取消预约")
@@ -74,6 +94,60 @@ public class AllAppointmentAdapter extends BaseMultiItemQuickAdapter<appointment
                                     appointment.setVisibility(view.INVISIBLE);
                                     textView.setText("已结束");
                                     Toast.makeText(getContext(), "已取消预约", Toast.LENGTH_SHORT).show();
+
+                                    String uri= NetUtils.INTERNET_THROUGH_URL+"androidtest/appointment/updateOrderState";
+
+
+                                    SharedPreferences sharedPreferences=((Activity)getContext()).getSharedPreferences("setting",MODE_PRIVATE);
+
+                                    String Account = sharedPreferences.getString("Account","");
+
+
+                                    Map map = new HashMap();
+                                    System.out.println(getId());
+                                    map.put("rentalid",String.valueOf(getId()));
+
+                                    OkHttpManager.postF(uri,map,new Callback() {
+                                        @Override
+                                        public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                            ((Activity)getContext()).runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    String responseData = "";
+                                                    Result<String> result = null;
+                                                    try {
+
+                                                        responseData = response.body().string();
+                                                        System.out.println(responseData);
+                                                    } catch (IOException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                    ObjectMapper objectMapper = new ObjectMapper();
+                                                    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+                                                    try {
+                                                        result = objectMapper.readValue(responseData,new TypeReference<Result<String>>(){});
+                                                    } catch (JsonProcessingException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                    System.out.println(result);
+                                                    System.out.println(result.getData());
+                                                    if (result.getCode() == 1) {
+                                                        System.out.println("取消预约成功");
+                                                    } else {
+                                                        Toast.makeText(AllAppointmentAdapter.this.getContext(), result.getMsg(), Toast.LENGTH_SHORT).show();
+
+                                                    }
+                                                }
+                                            });
+                                        }
+
+                                        @Override
+                                        public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+                                        }
+                                    });
+
                                 }
                             })
                             .show();
