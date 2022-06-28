@@ -37,7 +37,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,7 +69,7 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<rentalDto, BaseViewHo
     //设置新闻具体信息
     protected void convert(@NotNull BaseViewHolder baseViewHolder, rentalDto rentalDto) {
 
-                initTimerPicker();
+
                 appointment = baseViewHolder.findView(R.id.appointment);
                 appointment.setOnClickListener(view->{
                     SharedPreferences sharedPreferences=((Activity)getContext()).getSharedPreferences("setting",MODE_PRIVATE);
@@ -75,6 +77,7 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<rentalDto, BaseViewHo
                     if(Account.isEmpty()){
                       Navigation.findNavController(view).navigate(R.id.loginFragment);
                     }else{
+                        initTimerPicker(rentalDto);
                         mTimerPicker.show(appointment.getText().toString());
                         rentalId = rentalDto.getId();
                     }
@@ -82,10 +85,10 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<rentalDto, BaseViewHo
                 baseViewHolder.setText(R.id.brandName,rentalDto.getCar().getPlatenumber());
                 baseViewHolder.setText(R.id.name,rentalDto.getUser().getName());
                 baseViewHolder.setText(R.id.carKindName,rentalDto.getCar().getBrand());
-                baseViewHolder.setText(R.id.startT,rentalDto.getStartday());
-                baseViewHolder.setText(R.id.endT,rentalDto.getFinishday());
-                baseViewHolder.setText(R.id.startTime,rentalDto.getStarttime());
-                baseViewHolder.setText(R.id.endTime,rentalDto.getFinishtime());
+                baseViewHolder.setText(R.id.startTime,rentalDto.getStartday());
+                baseViewHolder.setText(R.id.endTime,rentalDto.getFinishday());
+                baseViewHolder.setText(R.id.startT,rentalDto.getStarttime());
+                baseViewHolder.setText(R.id.endT,rentalDto.getFinishtime());
     }
 
 
@@ -111,12 +114,14 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<rentalDto, BaseViewHo
     }
 
 
-    private void initTimerPicker() {
+    private void initTimerPicker(rentalDto rentalDto) {
         //开始时间
-        String beginTime = "2022-01-01 00:00";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date2=new Date();
+        String beginTime =sdf.format(date2);
 //        DateFormatUtils.long2Str(System.currentTimeMillis(), true);
         //结束时间
-        String endTime =  "2022-12-30 24:00";
+        String endTime = rentalDto.getFinishday()+" "+rentalDto.getFinishtime();
         // 通过日期字符串初始化日期，格式请用：yyyy-MM-dd HH:mm
         mTimerPicker = new CustomDatePicker(this.getContext(), new CustomDatePicker.Callback() {
             @Override
@@ -161,6 +166,7 @@ public class HomeAdapter extends BaseMultiItemQuickAdapter<rentalDto, BaseViewHo
                                     e.printStackTrace();
                                 }
                                 if (result.getCode() == 1){
+                                    Navigation.findNavController(getRecyclerView()).navigate(R.id.navigation_home);
                                     Toast.makeText(getContext(), "预约成功!", Toast.LENGTH_SHORT).show();
                                 }else{
                                     Toast.makeText(getContext(), result.getMsg(), Toast.LENGTH_SHORT).show();

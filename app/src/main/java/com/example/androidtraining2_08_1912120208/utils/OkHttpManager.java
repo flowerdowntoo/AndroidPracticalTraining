@@ -53,7 +53,7 @@ public class OkHttpManager {
     public static void postFile(URL url, File file_1, okhttp3.Callback callback) {
         //上传文件
         OkHttpClient okHttpClient = new OkHttpClient();
-        RequestBody body = RequestBody.create(MediaType.parse("application/octet-stream"), file_1);
+        RequestBody body = RequestBody.create(MediaType.parse("multipart/form-data"), file_1);
         MultipartBody body1 = new
                 MultipartBody.Builder().addFormDataPart("file", file_1.getName(), body).build();
         Request request = new Request.Builder()//创建Request 对象。
