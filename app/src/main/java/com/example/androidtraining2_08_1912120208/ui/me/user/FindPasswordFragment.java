@@ -14,9 +14,13 @@ import androidx.navigation.Navigation;
 
 import com.example.androidtraining2_08_1912120208.R;
 import com.example.androidtraining2_08_1912120208.base.BaseFragment2;
+import com.example.androidtraining2_08_1912120208.datepicker.TimeCount;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -25,6 +29,8 @@ import cn.bmob.v3.listener.UpdateListener;
 
 public class FindPasswordFragment extends BaseFragment2 {
     private EditText editText;
+    private Button findPassword;
+    private TimeCount  timeCount;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,8 +38,19 @@ public class FindPasswordFragment extends BaseFragment2 {
         View root= inflater.inflate(R.layout.fragment_find_password, container, false);
         editText=root.findViewById(R.id.editText);
         Button button=root.findViewById(R.id.button);
+         findPassword =root.findViewById(R.id.button2);
         button.setOnClickListener(this::resetPasswordByEmail);
+        findPassword.setOnClickListener(this::findPassword);
+        timeCount = new TimeCount(60 * 1000+300, 1000,findPassword);
         return root;
+    }
+
+    private void findPassword(View view) {
+
+        timeCount.start();
+
+
+
     }
 
     /**
