@@ -24,8 +24,7 @@ public class SplashActivity extends AppCompatActivity {
 
         ImageView imageView=findViewById(R.id.imageView);
         //加载网络图片
-        Glide.with(this).load("http://5b0988e595225.cdn.sohucs.com/images/" +
-                "20190831/05de49d16e374e9e997bc97fdf29b0cc.gif").into(imageView);
+        Glide.with(this).load("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2Fff7bf8d0b69c799fa491a934e69f9aacd340897c1f716e-BmqnU3_fw658&refer=http%3A%2F%2Fhbimg.b0.upaiyun.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1659055817&t=51224fea384de82f6c0f7e8664fd4772").into(imageView);
 
         new Handler().postDelayed(() -> {
 
