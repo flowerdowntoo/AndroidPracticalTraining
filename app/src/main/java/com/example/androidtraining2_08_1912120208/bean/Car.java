@@ -1,6 +1,8 @@
 package com.example.androidtraining2_08_1912120208.bean;
 
 
+import android.graphics.Paint;
+
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.io.Serializable;
@@ -47,7 +49,15 @@ public class Car implements Serializable, MultiItemEntity {
      */
     private String image;
 
+    private Integer isDelete;
 
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
 
     @Override
     public String toString() {
@@ -62,6 +72,7 @@ public class Car implements Serializable, MultiItemEntity {
         sb.append(", userid=").append(userid);
         sb.append(", carstate=").append(carstate);
         sb.append(", image=").append(image);
+        sb.append(", isDelete=").append(isDelete);
         sb.append("]");
         return sb.toString();
     }

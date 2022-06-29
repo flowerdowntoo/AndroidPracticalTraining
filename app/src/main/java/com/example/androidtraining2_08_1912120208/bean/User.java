@@ -12,8 +12,17 @@ public class User {
     private int isadmin;
     private String name;
     private String image;
+    private String email;
 
     public User() {
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getId() {

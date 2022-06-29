@@ -77,7 +77,7 @@ public class RegisterFragment extends BaseFragment2 {
         name=root.findViewById(R.id.name);
         userName=root.findViewById(R.id.username);
         account=root.findViewById(R.id.account);
-//        email=root.findViewById(R.id.email);
+        email=root.findViewById(R.id.email);
         phone=root.findViewById(R.id.phone);
 
         //头像上传
@@ -207,7 +207,7 @@ public class RegisterFragment extends BaseFragment2 {
         String password21 = password2.getText().toString();
         String account1=account.getText().toString();
         String sex1 = sex.getText().toString();
-//        String email1 = email.getText().toString();
+        String email1 = email.getText().toString();
         String phone1 = phone.getText().toString();
 
 
@@ -218,7 +218,7 @@ public class RegisterFragment extends BaseFragment2 {
         map.put("sex",sex1);
         map.put("number",phone1);
         map.put("image",image);
-//        map.put("email",email1);
+        map.put("email",email1);
 
 
         OkHttpManager.postF(uri, map, new Callback() {
