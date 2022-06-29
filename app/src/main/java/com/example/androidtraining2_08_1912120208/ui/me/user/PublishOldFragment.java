@@ -1,5 +1,8 @@
 package com.example.androidtraining2_08_1912120208.ui.me.user;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,8 +69,10 @@ public class PublishOldFragment extends Fragment {
     }
     //得到新闻列表
     private void getNewsList() {
+        SharedPreferences sharedPreferences=getActivity().getSharedPreferences("setting",MODE_PRIVATE);
 
-        String uri= NetUtils.INTERNET_THROUGH_URL+"androidtest/rental/getRentalInfo";
+        String Account = sharedPreferences.getString("Account","");
+                String uri= NetUtils.INTERNET_THROUGH_URL+"androidtest/rental/getMyRentalInfo/"+Account;
 
         OkHttpManager.get(uri, new Callback() {
             @Override

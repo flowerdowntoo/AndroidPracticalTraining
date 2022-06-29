@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
@@ -17,6 +18,7 @@ import com.example.androidtraining2_08_1912120208.bean.appointmentDto;
 import com.example.androidtraining2_08_1912120208.bean.rentalDto;
 
 import org.jetbrains.annotations.NotNull;
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -38,6 +40,13 @@ public class PublishOldAdapter extends BaseMultiItemQuickAdapter<rentalDto, Base
     protected void convert(@NotNull BaseViewHolder baseViewHolder, rentalDto rentalDto) {
 
 
+        if(rentalDto.getExaminestate() ==1){
+            ((TextView)baseViewHolder.findView(R.id.Sid)).setText("已通过");
+        }else if(rentalDto.getExaminestate() == -1){
+            ((TextView)baseViewHolder.findView(R.id.Sid)).setText("未审核");
+        }else{
+            ((TextView)baseViewHolder.findView(R.id.Sid)).setText("未通过");
+        }
 
         baseViewHolder.setText(R.id.brandName,rentalDto.getCar().getPlatenumber());
         baseViewHolder.setText(R.id.name,rentalDto.getUser().getName());

@@ -72,7 +72,7 @@ public class ManagerFragment extends Fragment {
     //得到新闻列表
     private void getNewsList() {
 
-        String uri= NetUtils.INTERNET_THROUGH_URL+"androidtest/rental/getRentalInfo";
+        String uri= NetUtils.INTERNET_THROUGH_URL+"androidtest/rental/getCheckInfo";
 
         OkHttpManager.get(uri, new Callback() {
             @Override

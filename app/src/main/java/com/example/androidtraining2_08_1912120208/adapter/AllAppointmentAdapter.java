@@ -98,11 +98,6 @@ public class AllAppointmentAdapter extends BaseMultiItemQuickAdapter<appointment
                                     String uri= NetUtils.INTERNET_THROUGH_URL+"androidtest/appointment/updateOrderState";
 
 
-                                    SharedPreferences sharedPreferences=((Activity)getContext()).getSharedPreferences("setting",MODE_PRIVATE);
-
-                                    String Account = sharedPreferences.getString("Account","");
-
-
                                     Map map = new HashMap();
                                     System.out.println(getId());
                                     map.put("rentalid",String.valueOf(getId()));

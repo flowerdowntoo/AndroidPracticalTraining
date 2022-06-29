@@ -105,7 +105,7 @@ public class MyCarFragment extends Fragment {
     private void getNewsList() {
         SharedPreferences sharedPreferences=getActivity().getSharedPreferences("setting",MODE_PRIVATE);
         String Account = sharedPreferences.getString("Account","");
-        String uri= NetUtils.INTERNET_THROUGH_URL+"androidtest/car/getMyCarInfo/"+Account;
+        String uri= NetUtils.INTERNET_THROUGH_URL+"androidtest/car/getAllMyCarInfo/"+Account;
 
         OkHttpManager.get(uri, new Callback() {
             @Override

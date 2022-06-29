@@ -1,7 +1,11 @@
 package com.example.androidtraining2_08_1912120208.adapter;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,16 +16,40 @@ import androidx.annotation.NonNull;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.example.androidtraining2_08_1912120208.R;
+import com.example.androidtraining2_08_1912120208.bean.Result;
 import com.example.androidtraining2_08_1912120208.bean.appointmentDto;
+import com.example.androidtraining2_08_1912120208.bean.rentalDto;
+import com.example.androidtraining2_08_1912120208.utils.NetUtils;
+import com.example.androidtraining2_08_1912120208.utils.OkHttpManager;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class PublishNewOrderAdapter extends BaseMultiItemQuickAdapter<appointmentDto, BaseViewHolder>{
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+
+public class PublishNewOrderAdapter extends BaseMultiItemQuickAdapter<rentalDto, BaseViewHolder>{
     private long rentalId;
-    private long id;
-    public PublishNewOrderAdapter(List<appointmentDto> data) {
+    private long Carid;
+
+    public void setCarid(long carid) {
+        Carid = carid;
+    }
+
+    public long getCarid() {
+        return Carid;
+    }
+
+    public PublishNewOrderAdapter(List<rentalDto> data) {
         super(data);
         // 绑定 layout 对应的 type
 //         addItemType(1, R.layout.item_home1);
@@ -32,7 +60,7 @@ public class PublishNewOrderAdapter extends BaseMultiItemQuickAdapter<appointmen
 
         @Override
         //设置新闻具体信息
-        protected void convert(@NotNull BaseViewHolder baseViewHolder, appointmentDto appointmentDto) {
+        protected void convert(@NotNull BaseViewHolder baseViewHolder, rentalDto rentalDto) {
 //        switch (baseViewHolder.getItemViewType()){
 //            //item_home1
 ////            case 1:
@@ -44,15 +72,16 @@ public class PublishNewOrderAdapter extends BaseMultiItemQuickAdapter<appointmen
 //            //item_home2
 //            case 2:
 
-            if(appointmentDto.getOrderstate() == 2 ){
+            if(rentalDto.getAppointment().getOrderstate() == 2 ){
                 System.out.println("预约中");
                 Button appointment = baseViewHolder.findView(R.id.appointment);
                 appointment.setVisibility(View.VISIBLE);
                 //审核状态
                 TextView textView=baseViewHolder.findView(R.id.Sid);
                 appointment.setOnClickListener(view->{
-                    id = appointmentDto.getId();
-                    System.out.println(id);
+                    rentalId = rentalDto.getId();
+                    Carid = rentalDto.getCar().getId();
+
                     new AlertDialog.Builder(getContext())
                             .setTitle("取消订单")
                             .setMessage("确定收车？")
@@ -60,9 +89,7 @@ public class PublishNewOrderAdapter extends BaseMultiItemQuickAdapter<appointmen
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
 
-                                    // appointment.setVisibility(view.INVISIBLE);
-                                    // textView.setText("已结束");
-                                    //   Toast.makeText(getContext(), "取消", Toast.LENGTH_SHORT).show();
+
 
                                 }
                             })
@@ -71,15 +98,69 @@ public class PublishNewOrderAdapter extends BaseMultiItemQuickAdapter<appointmen
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     appointment.setVisibility(view.INVISIBLE);
                                     textView.setText("已结束");
-                                    Toast.makeText(getContext(), "收车成功！", Toast.LENGTH_SHORT).show();
+
+                                    String uri= NetUtils.INTERNET_THROUGH_URL+"androidtest/appointment/recoveryCar";
+
+
+                                    SharedPreferences sharedPreferences=((Activity)getContext()).getSharedPreferences("setting",MODE_PRIVATE);
+
+                                    String Account = sharedPreferences.getString("Account","");
+
+
+                                    Map map = new HashMap();
+                                    System.out.println(getId());
+                                    map.put("id",String.valueOf(getId()));
+                                    map.put("Carid",String.valueOf(getCarid()));
+
+                                    OkHttpManager.postF(uri,map,new Callback() {
+                                        @Override
+                                        public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                                            ((Activity)getContext()).runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    String responseData = "";
+                                                    Result<String> result = null;
+                                                    try {
+
+                                                        responseData = response.body().string();
+                                                        System.out.println(responseData);
+                                                    } catch (IOException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                    ObjectMapper objectMapper = new ObjectMapper();
+                                                    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+                                                    try {
+                                                        result = objectMapper.readValue(responseData,new TypeReference<Result<String>>(){});
+                                                    } catch (JsonProcessingException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                    System.out.println(result);
+                                                    System.out.println(result.getData());
+                                                    if (result.getCode() == 1) {
+                                                        System.out.println("收车成功");
+                                                    } else {
+                                                        Toast.makeText(PublishNewOrderAdapter.this.getContext(), result.getMsg(), Toast.LENGTH_SHORT).show();
+
+                                                    }
+                                                }
+                                            });
+                                        }
+
+                                        @Override
+                                        public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+                                        }
+                                    });
+
                                 }
                             })
                             .show();
                 });
-            }else if(appointmentDto.getOrderstate() == 3) {
+            }else if(rentalDto.getAppointment().getOrderstate() == 3) {
                 {
                     System.out.println("已结束");
-                    Button appointment = baseViewHolder.findView(R.id.cancel);
+                    Button appointment = baseViewHolder.findView(R.id.appointment);
                     //审核状态
                     TextView textView = baseViewHolder.findView(R.id.Sid);
                     appointment.setVisibility(View.INVISIBLE);
@@ -89,16 +170,16 @@ public class PublishNewOrderAdapter extends BaseMultiItemQuickAdapter<appointmen
 
                 //       LinearLayout linearLayout_car = root.findViewById(R.id.mycar_item);
 //        linearLayout_car.setOnClickListener(this::click);
-                baseViewHolder.setText(R.id.brandName, appointmentDto.getCar().getPlatenumber());
-                baseViewHolder.setText(R.id.name, appointmentDto.getUser().getName());
-                baseViewHolder.setText(R.id.carKindName, appointmentDto.getCar().getBrand());
-                baseViewHolder.setText(R.id.startT, appointmentDto.getRental().getStartday());
-                baseViewHolder.setText(R.id.endT, appointmentDto.getRental().getFinishday());
-                baseViewHolder.setText(R.id.startTime, appointmentDto.getRental().getStarttime());
-                baseViewHolder.setText(R.id.endDate, appointmentDto.getRental().getFinishtime());
-                baseViewHolder.setText(R.id.endDate, appointmentDto.getRental().getFinishtime());
-                baseViewHolder.setText(R.id.appointmentDate, appointmentDto.getAppointday());
-                baseViewHolder.setText(R.id.appointmentTime, appointmentDto.getAppointtime());
+                baseViewHolder.setText(R.id.brandName, rentalDto.getCar().getPlatenumber());
+                baseViewHolder.setText(R.id.name, rentalDto.getUser().getName());
+                baseViewHolder.setText(R.id.carKindName, rentalDto.getCar().getBrand());
+                baseViewHolder.setText(R.id.startT, rentalDto.getStartday());
+                baseViewHolder.setText(R.id.endT, rentalDto.getFinishday());
+                baseViewHolder.setText(R.id.startTime, rentalDto.getStarttime());
+                baseViewHolder.setText(R.id.endDate, rentalDto.getFinishtime());
+                baseViewHolder.setText(R.id.endDate, rentalDto.getFinishtime());
+                baseViewHolder.setText(R.id.appointmentDate, rentalDto.getAppointment().getAppointday());
+                baseViewHolder.setText(R.id.appointmentTime, rentalDto.getAppointment().getAppointtime());
 
 
 //                baseViewHolder.setText(R.id.startTime,rentalDto.getStarttime());

@@ -19,6 +19,7 @@ import com.example.androidtraining2_08_1912120208.adapter.AllAppointmentAdapter;
 import com.example.androidtraining2_08_1912120208.adapter.PublishNewOrderAdapter;
 import com.example.androidtraining2_08_1912120208.bean.Result;
 import com.example.androidtraining2_08_1912120208.bean.appointmentDto;
+import com.example.androidtraining2_08_1912120208.bean.rentalDto;
 import com.example.androidtraining2_08_1912120208.utils.NetUtils;
 import com.example.androidtraining2_08_1912120208.utils.OkHttpManager;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -76,7 +77,7 @@ public class PublishNewOrderFragment extends Fragment {
 
         String account = sharedPreferences.getString("Account","");
 
-        String uri= NetUtils.INTERNET_THROUGH_URL+"androidtest/appointment/getMyAppointmentInfo/"+account;
+        String uri= NetUtils.INTERNET_THROUGH_URL+"androidtest/rental/getMyOrdersInfo/"+account;
 
         OkHttpManager.get(uri, new Callback() {
             @Override
@@ -85,7 +86,7 @@ public class PublishNewOrderFragment extends Fragment {
                     @Override
                     public void run() {
                         String responseData = "";
-                        Result<List<appointmentDto>> result = null;
+                        Result<List<rentalDto>> result = null;
                         try {
 
                             responseData = response.body().string();
@@ -97,7 +98,7 @@ public class PublishNewOrderFragment extends Fragment {
                         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
                         try {
-                            result = objectMapper.readValue(responseData,new TypeReference<Result<List<appointmentDto>>>(){});
+                            result = objectMapper.readValue(responseData,new TypeReference<Result<List<rentalDto>>>(){});
                         } catch (JsonProcessingException e) {
                             e.printStackTrace();
                         }

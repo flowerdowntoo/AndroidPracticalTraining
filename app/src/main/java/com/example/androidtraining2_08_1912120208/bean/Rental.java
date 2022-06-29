@@ -23,7 +23,7 @@ public class Rental implements Serializable {
     /**
      * 
      */
-    private Integer carid;
+    private String carid;
 
     /**
      * 
@@ -86,11 +86,11 @@ public class Rental implements Serializable {
         this.userid = userid;
     }
 
-    public Integer getCarid() {
+    public String getCarid() {
         return carid;
     }
 
-    public void setCarid(Integer carid) {
+    public void setCarid(String carid) {
         this.carid = carid;
     }
 
