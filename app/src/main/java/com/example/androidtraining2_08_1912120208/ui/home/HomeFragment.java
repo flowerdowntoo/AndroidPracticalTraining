@@ -28,8 +28,7 @@ import com.example.androidtraining2_08_1912120208.bean.NewsBean;
 import com.example.androidtraining2_08_1912120208.bean.Result;
 import com.example.androidtraining2_08_1912120208.bean.User;
 import com.example.androidtraining2_08_1912120208.bean.rentalDto;
-import com.example.androidtraining2_08_1912120208.databinding.FragmentHomeBinding;
-import com.example.androidtraining2_08_1912120208.ui.chart.ChartViewModel;
+
 import com.example.androidtraining2_08_1912120208.ui.me.user.InfoFragment;
 import com.example.androidtraining2_08_1912120208.utils.NetUtils;
 import com.example.androidtraining2_08_1912120208.utils.OkHttpManager;

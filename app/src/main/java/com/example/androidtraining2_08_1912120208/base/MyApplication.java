@@ -14,7 +14,7 @@ public class MyApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        Bmob.initialize(this, "2690a20c4292bd85606aa655f811f9e5");
+//        Bmob.initialize(this, "2690a20c4292bd85606aa655f811f9e5");
 
         // 是否同意隐私政策，默认为false
         SDKInitializer.setAgreePrivacy(getApplicationContext(), true);

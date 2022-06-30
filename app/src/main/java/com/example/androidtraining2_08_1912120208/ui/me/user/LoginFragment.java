@@ -63,13 +63,13 @@ public class LoginFragment extends BaseFragment2 {
         textView2.setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.findPasswordFragment);
         });
-        Button button=root.findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginClick(v);
-            }
-        });
+//        Button button=root.findViewById(R.id.button);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                loginClick(v);
+//            }
+//        });
 
         return root;
 

@@ -12,8 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.androidtraining2_08_1912120208.R;
-import com.example.androidtraining2_08_1912120208.ui.video.detail.VideoIntroFragment;
-import com.example.androidtraining2_08_1912120208.ui.video.detail.VideoListFragment;
+
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
